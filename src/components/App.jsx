@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { Global, css } from '@emotion/react';
 
 import FormContacts from './FormContacts';
 import ContactList from './ContactList';
@@ -62,15 +63,17 @@ class App extends Component {
     );
 
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          color: '#010101',
-        }}
-      >
+      <>
+        <Global
+          style={{
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            color: '#010101',
+          }}
+        />
+
         <h1>Phoneboock</h1>
         <FormContacts onSubmit={this.addContact} listContacts={contacts} />
         <FilterContacts
@@ -82,7 +85,7 @@ class App extends Component {
           listContacts={visibleContacts}
           deleteContact={this.deleteContact}
         />
-      </div>
+      </>
     );
   }
 }
