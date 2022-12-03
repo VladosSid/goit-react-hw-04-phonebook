@@ -36,10 +36,13 @@ class App extends Component {
   // get contactsfrom localStorage
   componentDidMount() {
     const contacts = localStorage.getItem('contacts');
+    try {
+      const contactsParse = JSON.parse(contacts);
 
-    this.setState({
-      contacts: JSON.parse(contacts).contacts,
-    });
+      this.setState({
+        contacts: contactsParse.contacts,
+      });
+    } catch (error) {}
   }
 
   // add localStorage contacts
@@ -48,6 +51,7 @@ class App extends Component {
       localStorage.setItem('contacts', JSON.stringify(this.state));
     }
   }
+
   render() {
     const { contacts, filter } = this.state;
 
