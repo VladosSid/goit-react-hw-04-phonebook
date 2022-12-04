@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { Global, css } from '@emotion/react';
 
 import FormContacts from './FormContacts';
 import ContactList from './ContactList';
 import FilterContacts from './FilterContacts';
+
+import { GlobalBox } from './App.styled';
 
 class App extends Component {
   state = {
@@ -63,17 +64,7 @@ class App extends Component {
     );
 
     return (
-      <>
-        <Global
-          style={{
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            color: '#010101',
-          }}
-        />
-
+      <GlobalBox>
         <h1>Phoneboock</h1>
         <FormContacts onSubmit={this.addContact} listContacts={contacts} />
         <FilterContacts
@@ -85,7 +76,7 @@ class App extends Component {
           listContacts={visibleContacts}
           deleteContact={this.deleteContact}
         />
-      </>
+      </GlobalBox>
     );
   }
 }
