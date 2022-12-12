@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
+import useLocalStorage from '../hooks/useLocalStorage';
+
 import FormContacts from './FormContacts';
 import ContactList from './ContactList';
 import FilterContacts from './FilterContacts';
@@ -8,9 +10,7 @@ import FilterContacts from './FilterContacts';
 import { GlobalBox } from './App.styled';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem('contacts')) ?? []
-  );
+  const [contacts, setContacts] = useLocalStorage('contacts');
   const [filter, setFilter] = useState('');
   const [filterResult, setFilterResult] = useState([]);
 
@@ -27,28 +27,6 @@ export const App = () => {
   const deleteContact = ContactId => {
     setContacts(state => state.filter(contact => contact.id !== ContactId));
   };
-
-  // get contactsfrom localStorage
-  // useEffect(() => {
-  //   const contactsLocal = localStorage.getItem('contacts');
-
-  //   try {
-  //     const contactsParse = JSON.parse(contactsLocal);
-  //     console.log(contactsParse);
-
-  //     setContacts(contactsParse);
-  //     console.log(contactsParse);
-
-  //     console.log(contacts);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }, []);
-
-  // add localStorage contacts
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   useEffect(() => {
     const normalizedFilter = filter.toLocaleLowerCase();
