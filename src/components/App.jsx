@@ -11,7 +11,7 @@ import { GlobalBox } from './App.styled';
 
 export const App = () => {
   const [contacts, setContacts] = useLocalStorage('contacts');
-  const [filter, setFilter] = useState('');
+  const [filterValue, setFilter] = useState('');
   const [filterResult, setFilterResult] = useState([]);
 
   const addContact = (name, number) => {
@@ -29,12 +29,12 @@ export const App = () => {
   };
 
   useEffect(() => {
-    const normalizedFilter = filter.toLocaleLowerCase();
+    const normalizedFilter = filterValue.toLocaleLowerCase();
     const visibleContacts = contacts.filter(contact =>
       contact.name.toLocaleLowerCase().includes(normalizedFilter)
     );
     setFilterResult(visibleContacts);
-  }, [filter, contacts]);
+  }, [filterValue, contacts]);
 
   return (
     <GlobalBox>
@@ -42,7 +42,7 @@ export const App = () => {
       <FormContacts onSubmit={addContact} listContacts={contacts} />
       <FilterContacts
         textTitel="Find contacts by name"
-        filterData={filter}
+        filterData={filterValue}
         onChange={e => setFilter(e.currentTarget.value)}
       />
       <ContactList listContacts={filterResult} deleteContact={deleteContact} />
